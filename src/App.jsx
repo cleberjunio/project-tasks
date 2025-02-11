@@ -1,6 +1,7 @@
 import Tasks from "./components/Tasks"
 import AddTasks from "./components/AddTasks"
 import { useState } from "react"
+import { v4 as uuidv4 } from "uuid"
 function App() {
   const [tasks, setTasks] = useState([
     {
@@ -40,9 +41,9 @@ function App() {
     setTasks(newTask)
   }
 
-  function ondAddTaskSubmit({ title, description }) {
+  function ondAddTaskSubmit(title, description) {
     const newTask = {
-      id: tasks.length + 1,
+      id: uuidv4(),
       title,
       description,
       isCompleted: false,
@@ -55,12 +56,11 @@ function App() {
         <h1 className="text-3xl text-center font-bold text-white">
           Gerenciador de Tarefas
         </h1>
-        <AddTasks />
+        <AddTasks onAddTaskSubmit={ondAddTaskSubmit} />
         <Tasks
           tasks={tasks}
           onTaskClick={onTaskClick}
           onDeletedTaskClick={onDeletedTaskClick}
-          ondAddTaskSubmit={ondAddTaskSubmit}
         />
       </div>
     </div>

@@ -3,7 +3,7 @@ import { useState } from "react"
 function AddTasks({ onAddTaskSubmit }) {
   const [title, setTitle] = useState("")
   const [description, setDescription] = useState("")
-  console.log({ title, description })
+
   return (
     <div className="flex bg-slate-200 p-4 rounded-md gap-4 flex-col">
       <input
@@ -21,7 +21,10 @@ function AddTasks({ onAddTaskSubmit }) {
         onChange={(event) => setDescription(event.target.value)}
       />
       <button
-        onClick={function () {
+        onClick={() => {
+          if (!title.trim() || !description.trim()) {
+            return alert("Preencha o título e a descrição da tarefa")
+          }
           onAddTaskSubmit(title, description)
           setTitle("")
           setDescription("")
